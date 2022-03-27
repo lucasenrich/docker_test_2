@@ -5,12 +5,12 @@ services:
   postgres:
    # build the image from Dockerfile
     build:
-      context: .
+      context: ${PWD}
 
     # bind mount volume for Postgres data
     volumes:
-     - ./pg-data/:/var/lib/postgresql/data
-     - ./python-app:/var/www/html
+     - $PWD/pg-data/:/var/lib/postgresql/data
+     - $PWD/python-app:/var/www/html
 
     # open port so host machine can access
     ports:
