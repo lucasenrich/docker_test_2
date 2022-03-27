@@ -1,0 +1,16 @@
+docker run -p 5432:5432 -d -e POSTGRES_USER="objectrocket" -e POSTGRES_PASSWORD="1234" -e POSTGRES_DB="some_db" -v pg-data:/var/lib/postgresql/data --name pg-container postgres 
+docker ps
+docker exec -it {ID} bin/bash [CON ESTO TE METES EN EL CONTAINER]
+
+psql -U objectrocket -d some_db [CON ESTO TE METES EN SQL Y GESTIONAS SQL DESDE AHI]
+
+
+
+SI USAS DOCKER-COMPOSE, DEBES ENTRAR:
+docker image ls [PARA ENCONTRAR ID]
+docker run -it --entrypoint=/bin/bash [ID]
+
+
+wget https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) 
+sudo mv docker-compose-$(uname -s)-$(uname -m) /usr/local/bin/docker-compose
+sudo chmod -v +x /usr/local/bin/docker-compose
