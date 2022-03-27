@@ -1,16 +1,17 @@
-FROM python:3.8.1-slim
+FROM postgres:latest
 
+# install Python 3
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN apt-get -y install python3
+RUN apt-get -y install postgresql-server-dev-10 gcc python3 musl-dev
 
-ENV PYTHONUNBUFFERED 1 
+RUN pip3 install psycopg2
 
-EXPOSE 8000
+# add the 'postgres' admin role
+USER root
 
-WORKDIR /app
+# expose Postgres port
+EXPOSE 5432
 
-COPY ./requirements.txt .
-
-COPY ./src . 
-
-RUN pip install -r requirements.txt 
-
-CMD ["uvicorn", "--host", "0.0.0.0", "--port", "8000", "main:app"]
+# bind mount Postgres volumes for persistent data
+VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
